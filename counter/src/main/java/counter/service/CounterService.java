@@ -1,12 +1,12 @@
 package counter.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import counter.model.Counter;
-import counter.model.CounterEmbeddable;
 import counter.repository.CounterRepository;
 
 @Service
@@ -21,33 +21,32 @@ public class CounterService {
 	}
 
 	// DELETE
-	public void deleteCounter(String hopo, String flti, String alc) {
-		counterRepo.deleteByIdHopoAndIdFltiAndAndIdAlc(hopo, flti, alc);
+	public void deleteCounter(Counter model) {
+		counterRepo.delete(model);
 	}
 
 	// UPDATE
-	public void updateCounter(String hopo, String flti, String alc, String counter) {
-		List<Counter> Counter = counterRepo.findByIdHopoAndIdFltiAndIdAlc(hopo, flti, alc);
-		Counter.get(0).setCounter(counter);
-		counterRepo.save(Counter.get(0));
+	public Counter updateCounter(Counter model) {
+		return counterRepo.save(model);
 	}
 
+	
 	// CREATE
-	public void createCounter(String hopo, String flti, String alc, String counter) {
-//		List<Counter> Check_Counter = counterRepo.findByIdHopoAndIdFltiAndIdAlc(hopo, flti, alc);
-		Counter Counter = new Counter(new CounterEmbeddable(hopo, flti, alc), counter);
-		counterRepo.save(Counter);
-//		return Check_Counter.size();
-	}
+		public Counter createCounter(Counter model) {
+			Optional<Counter> Counter = counterRepo.findById(model.getId());
+			if (!Counter.isPresent()) {
+		        return counterRepo.save(model);
+		    }
+		    return null;
+		}
 
 	// SEARCH
 	public List<Counter> searchCounter(String hopo, String flti, String alc, String counter) {
-		List<Counter> Counter = counterRepo.findByIdHopoContainingAndIdFltiContainingAndIdAlcContainingAndCounterContaining(hopo, flti, alc, counter);
-		if (Counter.size() == 0) {
-			return null;
-		} else {
+		List<Counter> Counter = counterRepo.findByIdHopoContainingAndIdFltiContainingAndIdAlcContainingAndCounterContaining(hopo, flti, alc,counter);
+		if (Counter.size() != 0) {
 			return Counter;
-		}
+		} 
+		return null;
 	}
 
 }

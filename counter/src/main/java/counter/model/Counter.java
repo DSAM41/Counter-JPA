@@ -1,20 +1,18 @@
 package counter.model;
 
-
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
-
 @Entity
-public class Counter {	
-	
+public class Counter {
+
 	@EmbeddedId
 	private CounterEmbeddable id;
 	private String counter;
-	
+
 	public Counter() {
-    }
-	
+	}
+
 	public Counter(CounterEmbeddable id, String counter) {
 		this.id = id;
 		this.counter = counter;
@@ -35,5 +33,5 @@ public class Counter {
 	public void setCounter(String counter) {
 		this.counter = counter;
 	}
-	
+
 }

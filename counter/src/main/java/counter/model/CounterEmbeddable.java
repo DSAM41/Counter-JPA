@@ -8,20 +8,19 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class CounterEmbeddable implements Serializable {
 
-
 	private static final long serialVersionUID = 1L;
-	
+
 	@Column(name = "HOPO")
-	private String hopo; 
+	private String hopo;
 	@Column(name = "FLTI")
 	private String flti;
 	@Column(name = "ALC2")
 	private String alc;
-	
+
 	public CounterEmbeddable() {
 
 	}
-	
+
 	public CounterEmbeddable(String hopo, String flti, String alc) {
 		super();
 		this.hopo = hopo;

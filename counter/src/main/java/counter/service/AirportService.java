@@ -16,6 +16,6 @@ public class AirportService {
 
 	// READ
 	public List<Airport> getAirport() {
-		return airportRepo.findAll();
+		return airportRepo.findAllByOrderByApcAsc();
 	}
 }
